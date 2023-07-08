@@ -4,7 +4,7 @@
 
 # ansible-inventory-diagram
 
-Script for generating infrastructure graphs from Ansible diagrams files
+Script for generating infrastructure diagrams from Ansible inventory files
 
 ![Example diagram](./ansible_inventory_diagram.png)
 
@@ -30,6 +30,35 @@ Once you have an outputted JSON inventory file you can run the script:
 
 ```bash
 python3 diagram/main.py
+```
+
+For instructions run
+
+```bash
+python3 diagram/main.py -h
+```
+
+You will see the following
+
+```text
+usage: ansible-inventory-diagram [-h] [-i INVENTORY]
+                                 [-o {png,jpg,svg,pdf,dot}] [-n NAME]
+                                 [-f FILENAME] [-s]
+
+Script for generating infrastructure diagrams from Ansible inventory files
+
+options:
+  -h, --help            show this help message and exit
+  -i INVENTORY, --inventory INVENTORY
+                        Path to Ansible JSON inventory file
+  -o {png,jpg,svg,pdf,dot}, --outformat {png,jpg,svg,pdf,dot}
+                        Format of the output format
+  -n NAME, --name NAME  Name of the diagram
+  -f FILENAME, --filename FILENAME
+                        Name of file to output
+  -s, --show            Show file after generation using the default program
+
+2023 - mbrav https://github.com/mbrav/ansible-inventory-diagram
 ```
 
 ## Installation
