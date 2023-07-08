@@ -1,0 +1,561 @@
+{
+    "_meta": {
+        "hostvars": {
+            "vm-concourse01": {
+                "ansible_host": "10.10.100.21",
+                "ansible_user": "admin"
+            },
+            "vm-concourse02": {
+                "ansible_host": "10.10.100.22",
+                "ansible_user": "admin"
+            },
+            "vm-concourse03": {
+                "ansible_host": "10.10.100.23",
+                "ansible_user": "admin"
+            },
+            "vm-consul01": {
+                "ansible_host": "10.10.100.12",
+                "ansible_user": "admin"
+            },
+            "vm-consul02": {
+                "ansible_host": "10.10.100.13",
+                "ansible_user": "admin"
+            },
+            "vm-consul03": {
+                "ansible_host": "10.10.100.14",
+                "ansible_user": "admin"
+            },
+            "vm-eastels04": {
+                "ansible_host": "10.10.100.220",
+                "ansible_user": "admin"
+            },
+            "vm-eastels05": {
+                "ansible_host": "10.10.100.221",
+                "ansible_user": "admin"
+            },
+            "vm-eastels06": {
+                "ansible_host": "10.10.100.222",
+                "ansible_user": "admin"
+            },
+            "vm-eastetc04": {
+                "ansible_host": "10.10.100.212",
+                "ansible_user": "admin"
+            },
+            "vm-eastetc05": {
+                "ansible_host": "10.10.100.213",
+                "ansible_user": "admin"
+            },
+            "vm-eastetc06": {
+                "ansible_host": "10.10.100.214",
+                "ansible_user": "admin"
+            },
+            "vm-easthap03": {
+                "ansible_host": "10.10.100.218",
+                "ansible_user": "admin"
+            },
+            "vm-easthap04": {
+                "ansible_host": "10.10.100.219",
+                "ansible_user": "admin"
+            },
+            "vm-easthrb02": {
+                "ansible_host": "10.10.100.223",
+                "ansible_user": "admin"
+            },
+            "vm-eastjs01": {
+                "ansible_host": "10.10.100.231",
+                "ansible_user": "admin"
+            },
+            "vm-eastjs02": {
+                "ansible_host": "10.10.100.232",
+                "ansible_user": "admin"
+            },
+            "vm-eastkcp01": {
+                "ansible_host": "10.10.100.215",
+                "ansible_user": "admin"
+            },
+            "vm-eastkcp02": {
+                "ansible_host": "10.10.100.216",
+                "ansible_user": "admin"
+            },
+            "vm-eastkcp03": {
+                "ansible_host": "10.10.100.217",
+                "ansible_user": "admin"
+            },
+            "vm-eastmno07": {
+                "ansible_host": "10.10.100.224",
+                "ansible_user": "admin"
+            },
+            "vm-eastmno08": {
+                "ansible_host": "10.10.100.225",
+                "ansible_user": "admin"
+            },
+            "vm-eastmno09": {
+                "ansible_host": "10.10.100.226",
+                "ansible_user": "admin"
+            },
+            "vm-eastmno10": {
+                "ansible_host": "10.10.100.227",
+                "ansible_user": "admin"
+            },
+            "vm-eastmno11": {
+                "ansible_host": "10.10.100.228",
+                "ansible_user": "admin"
+            },
+            "vm-eastmno12": {
+                "ansible_host": "10.10.100.229",
+                "ansible_user": "admin"
+            },
+            "vm-eastque01": {
+                "ansible_host": "10.10.100.209",
+                "ansible_user": "admin"
+            },
+            "vm-eastque02": {
+                "ansible_host": "10.10.100.210",
+                "ansible_user": "admin"
+            },
+            "vm-eastque03": {
+                "ansible_host": "10.10.100.211",
+                "ansible_user": "admin"
+            },
+            "vm-eastred01": {
+                "ansible_host": "10.10.100.233",
+                "ansible_user": "admin"
+            },
+            "vm-eastred02": {
+                "ansible_host": "10.10.100.234",
+                "ansible_user": "admin"
+            },
+            "vm-eastred03": {
+                "ansible_host": "10.10.100.235",
+                "ansible_user": "admin"
+            },
+            "vm-eastred04": {
+                "ansible_host": "10.10.100.236",
+                "ansible_user": "admin"
+            },
+            "vm-eastred05": {
+                "ansible_host": "10.10.100.237",
+                "ansible_user": "admin"
+            },
+            "vm-eastred06": {
+                "ansible_host": "10.10.100.238",
+                "ansible_user": "admin"
+            },
+            "vm-eastsurv01": {
+                "ansible_host": "10.10.100.203",
+                "ansible_user": "admin"
+            },
+            "vm-eastsurv02": {
+                "ansible_host": "10.10.100.204",
+                "ansible_user": "admin"
+            },
+            "vm-eastsurv03": {
+                "ansible_host": "10.10.100.205",
+                "ansible_user": "admin"
+            },
+            "vm-eastsurv04": {
+                "ansible_host": "10.10.100.206",
+                "ansible_user": "admin"
+            },
+            "vm-eastsurv05": {
+                "ansible_host": "10.10.100.207",
+                "ansible_user": "admin"
+            },
+            "vm-eastsurv06": {
+                "ansible_host": "10.10.100.208",
+                "ansible_user": "admin"
+            },
+            "vm-haproxy01": {
+                "ansible_host": "10.10.100.10",
+                "ansible_user": "admin"
+            },
+            "vm-haproxy02": {
+                "ansible_host": "10.10.100.11",
+                "ansible_user": "admin"
+            },
+            "vm-harbor01": {
+                "ansible_host": "10.10.100.24",
+                "ansible_user": "admin"
+            },
+            "vm-k8setcd01": {
+                "ansible_host": "10.10.100.30",
+                "ansible_user": "admin"
+            },
+            "vm-k8setcd02": {
+                "ansible_host": "10.10.100.31",
+                "ansible_user": "admin"
+            },
+            "vm-k8setcd03": {
+                "ansible_host": "10.10.100.32",
+                "ansible_user": "admin"
+            },
+            "vm-k8smstr01": {
+                "ansible_host": "10.10.100.33",
+                "ansible_user": "admin"
+            },
+            "vm-k8smstr02": {
+                "ansible_host": "10.10.100.34",
+                "ansible_user": "admin"
+            },
+            "vm-k8smstr03": {
+                "ansible_host": "10.10.100.35",
+                "ansible_user": "admin"
+            },
+            "vm-k8snode01": {
+                "ansible_host": "10.10.100.36",
+                "ansible_user": "admin"
+            },
+            "vm-k8snode02": {
+                "ansible_host": "10.10.100.37",
+                "ansible_user": "admin"
+            },
+            "vm-k8snode03": {
+                "ansible_host": "10.10.100.38",
+                "ansible_user": "admin"
+            },
+            "vm-k8snode04": {
+                "ansible_host": "10.10.100.39",
+                "ansible_user": "admin"
+            },
+            "vm-lstsrch01": {
+                "ansible_host": "10.10.100.200",
+                "ansible_user": "admin"
+            },
+            "vm-lstsrch02": {
+                "ansible_host": "10.10.100.201",
+                "ansible_user": "admin"
+            },
+            "vm-lstsrch03": {
+                "ansible_host": "10.10.100.202",
+                "ansible_user": "admin"
+            },
+            "vm-minio01": {
+                "ansible_host": "10.10.100.100",
+                "ansible_user": "admin"
+            },
+            "vm-minio02": {
+                "ansible_host": "10.10.100.101",
+                "ansible_user": "admin"
+            },
+            "vm-minio03": {
+                "ansible_host": "10.10.100.102",
+                "ansible_user": "admin"
+            },
+            "vm-minio04": {
+                "ansible_host": "10.10.100.103",
+                "ansible_user": "admin"
+            },
+            "vm-minio05": {
+                "ansible_host": "10.10.100.104",
+                "ansible_user": "admin"
+            },
+            "vm-minio06": {
+                "ansible_host": "10.10.100.105",
+                "ansible_user": "admin"
+            },
+            "vm-stolon01": {
+                "ansible_host": "10.10.100.18",
+                "ansible_user": "admin"
+            },
+            "vm-stolon02": {
+                "ansible_host": "10.10.100.19",
+                "ansible_user": "admin"
+            },
+            "vm-stolon03": {
+                "ansible_host": "10.10.100.20",
+                "ansible_user": "admin"
+            },
+            "vm-vault01": {
+                "ansible_host": "10.10.100.15",
+                "ansible_user": "admin"
+            },
+            "vm-vault02": {
+                "ansible_host": "10.10.100.16",
+                "ansible_user": "admin"
+            },
+            "vm-vault03": {
+                "ansible_host": "10.10.100.17",
+                "ansible_user": "admin"
+            },
+            "vm-vtk8snode01": {
+                "ansible_host": "10.10.100.60",
+                "ansible_user": "admin"
+            },
+            "vm-vtk8snode02": {
+                "ansible_host": "10.10.100.61",
+                "ansible_user": "admin"
+            },
+            "vm-vtk8snode03": {
+                "ansible_host": "10.10.100.62",
+                "ansible_user": "admin"
+            }
+        }
+    },
+    "all": {
+        "children": [
+            "ungrouped",
+            "haproxy",
+            "consul",
+            "vault",
+            "stolon",
+            "concourse",
+            "harbor",
+            "etcd",
+            "k8s",
+            "minio",
+            "elastic"
+        ]
+    },
+    "concourse": {
+        "children": [
+            "concourse_west",
+            "concourse_east"
+        ]
+    },
+    "concourse_east": {
+        "hosts": [
+            "vm-eastjs01",
+            "vm-eastjs02",
+            "vm-eastque01",
+            "vm-eastque02",
+            "vm-eastque03"
+        ]
+    },
+    "concourse_west": {
+        "hosts": [
+            "vm-concourse01",
+            "vm-concourse02",
+            "vm-concourse03"
+        ]
+    },
+    "consul": {
+        "children": [
+            "consul_west"
+        ]
+    },
+    "consul_west": {
+        "hosts": [
+            "vm-consul01",
+            "vm-consul02",
+            "vm-consul03"
+        ]
+    },
+    "elastic": {
+        "children": [
+            "elastic_west",
+            "elastic_east"
+        ]
+    },
+    "elastic_east": {
+        "hosts": [
+            "vm-eastels04",
+            "vm-eastels05",
+            "vm-eastels06"
+        ]
+    },
+    "elastic_west": {
+        "hosts": [
+            "vm-lstsrch01",
+            "vm-lstsrch02",
+            "vm-lstsrch03"
+        ]
+    },
+    "etcd": {
+        "children": [
+            "etcd_west",
+            "etcd_east"
+        ]
+    },
+    "etcd_east": {
+        "hosts": [
+            "vm-eastetc04",
+            "vm-eastetc05",
+            "vm-eastetc06"
+        ]
+    },
+    "etcd_west": {
+        "hosts": [
+            "vm-k8setcd01",
+            "vm-k8setcd02",
+            "vm-k8setcd03"
+        ]
+    },
+    "haproxy": {
+        "children": [
+            "haproxy_west",
+            "haproxy_east"
+        ]
+    },
+    "haproxy_east": {
+        "hosts": [
+            "vm-easthap03",
+            "vm-easthap04"
+        ]
+    },
+    "haproxy_west": {
+        "hosts": [
+            "vm-haproxy01",
+            "vm-haproxy02"
+        ]
+    },
+    "harbor": {
+        "children": [
+            "harbor_west",
+            "harbor_east"
+        ]
+    },
+    "harbor_east": {
+        "hosts": [
+            "vm-easthrb02"
+        ]
+    },
+    "harbor_west": {
+        "hosts": [
+            "vm-harbor01"
+        ]
+    },
+    "k8s": {
+        "children": [
+            "k8s_west",
+            "k8s_east"
+        ]
+    },
+    "k8s_east": {
+        "children": [
+            "k8s_east_masters",
+            "k8s_east_prod",
+            "k8s_east_dev"
+        ]
+    },
+    "k8s_east_dev": {
+        "children": [
+            "k8s_east_dev_workers"
+        ]
+    },
+    "k8s_east_dev_workers": {
+        "hosts": [
+            "vm-eastred01",
+            "vm-eastred02",
+            "vm-eastred03",
+            "vm-eastred04",
+            "vm-eastred05",
+            "vm-eastred06"
+        ]
+    },
+    "k8s_east_masters": {
+        "hosts": [
+            "vm-eastkcp01",
+            "vm-eastkcp02",
+            "vm-eastkcp03"
+        ]
+    },
+    "k8s_east_prod": {
+        "children": [
+            "k8s_east_prod_workers"
+        ]
+    },
+    "k8s_east_prod_workers": {
+        "hosts": [
+            "vm-eastsurv01",
+            "vm-eastsurv02",
+            "vm-eastsurv03",
+            "vm-eastsurv04",
+            "vm-eastsurv05",
+            "vm-eastsurv06"
+        ]
+    },
+    "k8s_west": {
+        "children": [
+            "k8s_west_prod",
+            "k8s_west_test"
+        ]
+    },
+    "k8s_west_prod": {
+        "children": [
+            "k8s_west_prod_masters",
+            "k8s_west_prod_workers"
+        ]
+    },
+    "k8s_west_prod_masters": {
+        "hosts": [
+            "vm-k8smstr01",
+            "vm-k8smstr02",
+            "vm-k8smstr03"
+        ]
+    },
+    "k8s_west_prod_workers": {
+        "hosts": [
+            "vm-k8snode01",
+            "vm-k8snode02",
+            "vm-k8snode03",
+            "vm-k8snode04"
+        ]
+    },
+    "k8s_west_test": {
+        "children": [
+            "k8s_west_test_masters",
+            "k8s_west_test_workers"
+        ]
+    },
+    "k8s_west_test_masters": {
+        "hosts": [
+            "vm-vtk8snode01"
+        ]
+    },
+    "k8s_west_test_workers": {
+        "hosts": [
+            "vm-vtk8snode02",
+            "vm-vtk8snode03"
+        ]
+    },
+    "minio": {
+        "children": [
+            "minio_west",
+            "minio_east"
+        ]
+    },
+    "minio_east": {
+        "hosts": [
+            "vm-eastmno07",
+            "vm-eastmno08",
+            "vm-eastmno09",
+            "vm-eastmno10",
+            "vm-eastmno11",
+            "vm-eastmno12"
+        ]
+    },
+    "minio_west": {
+        "hosts": [
+            "vm-minio01",
+            "vm-minio02",
+            "vm-minio03",
+            "vm-minio04",
+            "vm-minio05",
+            "vm-minio06"
+        ]
+    },
+    "stolon": {
+        "children": [
+            "stolon_west"
+        ]
+    },
+    "stolon_west": {
+        "hosts": [
+            "vm-stolon01",
+            "vm-stolon02",
+            "vm-stolon03"
+        ]
+    },
+    "vault": {
+        "children": [
+            "vault_west"
+        ]
+    },
+    "vault_west": {
+        "hosts": [
+            "vm-vault01",
+            "vm-vault02",
+            "vm-vault03"
+        ]
+    }
+}
