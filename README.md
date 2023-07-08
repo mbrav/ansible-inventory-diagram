@@ -29,7 +29,7 @@ ansible-inventory -i inventory/example.yml --list > inventory/example.json
 Once you have an outputted JSON inventory file you can run the script:
 
 ```bash
-python3 diagram/main.py
+python3 diagram/main.py -i inventory/example.json
 ```
 
 For instructions run

@@ -136,49 +136,50 @@ def _graph_recurse(cluster_title: str, group: AnsibleGroup) -> None:
         # Draw hosts if present
         group_name_lower = group.name.lower()
         for host in group.hosts:
+            label = f"{host.name}\n{host.host}"
             if (
                 "postgres" in group_name_lower
                 or "stolon" in group_name_lower
                 or "patroni" in group_name_lower
             ):
-                PostgreSQL(host.name)
+                PostgreSQL(label)
             elif "mysql" in group_name_lower:
-                Mssql(host.name)
+                Mssql(label)
             elif "elastic" in group_name_lower:
-                ElasticSearch(host.name)
+                ElasticSearch(label)
             elif "haproxy" in group_name_lower:
-                Haproxy(host.name)
+                Haproxy(label)
             elif "consul" in group_name_lower:
-                Consul(host.name)
+                Consul(label)
             elif "vault" in group_name_lower:
-                Vault(host.name)
+                Vault(label)
             elif "concourse" in group_name_lower:
-                ConcourseCI(host.name)
+                ConcourseCI(label)
             elif "harbor" in group_name_lower:
-                Harbor(host.name)
+                Harbor(label)
             elif "etcd" in group_name_lower:
-                ETCD(host.name)
+                ETCD(label)
             elif "kafka" in group_name_lower:
-                Kafka(host.name)
+                Kafka(label)
             elif "grafana" in group_name_lower:
-                Grafana(host.name)
+                Grafana(label)
             elif "prom" in group_name_lower:
-                Prometheus(host.name)
+                Prometheus(label)
             elif "nginx" in group_name_lower:
-                Nginx(host.name)
+                Nginx(label)
             elif "clickhouse" in group_name_lower:
-                Clickhouse(host.name)
+                Clickhouse(label)
             elif "k8s" in group_name_lower:
                 if "master" in group_name_lower:
-                    Master(host.name)
+                    Master(label)
                 else:
-                    Node(host.name)
+                    Node(label)
             elif "redis" in group_name_lower:
-                Redis(host.name)
+                Redis(label)
             # elif "minio" in group_name_lower:
-            #     Redis(host.name)
+            #     Redis(label)
             else:
-                DBDiagram(host.name)
+                DBDiagram(label)
 
         # Draw group children
         for child in group.children:
