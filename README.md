@@ -2,12 +2,13 @@
 [![tokei](https://tokei.rs/b1/github/mbrav/ansible-inventory-diagram?category=lines)](https://tokei.rs/b1/github/mbrav/ansible-inventory-diagram)
 [![Hits-of-Code](https://hitsofcode.com/github/mbrav/ansible-inventory-diagram?branch=main)](https://hitsofcode.com/github/mbrav/ansible-inventory-diagram/view?branch=main)
 
-
 # ansible-inventory-diagram
 
 Script for generating infrastructure graphs from Ansible diagrams files
 
 ![Example diagram](./ansible_inventory_diagram.png)
+
+[Link to image](https://github.com/mbrav/ansible-inventory-diagram/blob/main/ansible_inventory_diagram.png)
 
 ## Prerequisites
 
