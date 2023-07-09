@@ -1,14 +1,15 @@
 import argparse
 import os
 
-from graph import InventoryGraph, generate_ansible_graph
+from graph import COPY, InventoryGraph, generate_ansible_graph
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+
 
 parser = argparse.ArgumentParser(
     prog="ansible-inventory-diagram",
     description="Script for generating infrastructure diagrams from Ansible inventory files",
-    epilog="2023 - mbrav https://github.com/mbrav/ansible-inventory-diagram",
+    epilog=COPY,
 )
 parser.add_argument(
     "-i",

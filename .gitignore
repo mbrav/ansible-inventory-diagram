@@ -129,5 +129,4 @@ dmypy.json
 .pyre/\\
 
 .vscode/
-test_file.txt
-infra/__pycache__/
+*.test.*

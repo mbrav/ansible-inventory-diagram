@@ -15,6 +15,8 @@ from diagrams.onprem.security import Vault
 from diagrams.programming.flowchart import Database as DBDiagram
 from patch import OsageDiagram
 
+COPY = "2023 GNU GPL v3.0 - mbrav https://github.com/mbrav/ansible-inventory-diagram"
+
 
 @dataclass
 class AnsibleHost:
@@ -117,8 +119,10 @@ def generate_ansible_graph(
     show: bool = False,
 ) -> None:
     """Ansible inventory graph generation"""
+
+    title = f"{name}\n{COPY}"
     with OsageDiagram(
-        name=name,
+        name=title,
         filename=filename,
         show=show,
         outformat=outformat,
