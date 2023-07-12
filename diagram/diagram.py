@@ -1,6 +1,4 @@
-from diagrams import Cluster
-from diagrams import Diagram as OsageDiagram
-from diagrams import Node
+from diagrams import Cluster, Diagram, Node
 from diagrams.elastic.elasticsearch import ElasticSearch
 from diagrams.k8s.infra import ETCD, Master
 from diagrams.k8s.infra import Node as Worker
@@ -15,8 +13,7 @@ from diagrams.onprem.registry import Harbor
 from diagrams.onprem.security import Vault
 from diagrams.programming.flowchart import Database as DBDiagram
 from graph import AnsibleGroup
-
-# from patch import OsageDiagram
+from patch import OsageDiagram
 
 COPY = "2023 GNU GPL v3.0 - mbrav https://github.com/mbrav/ansible-inventory-diagram"
 
@@ -26,47 +23,105 @@ node_attr = {"fontsize": "10", "pad": "5.0"}
 graph_attr = {}
 
 
-def generate_ansible_diagram(
-    data: dict[str, AnsibleGroup],
-    name: str = "Ansible inventory diagram",
-    filename: str = "ansible_inventory_diagram",
-    outformat: str = "pdf",
-    show: bool = False,
-) -> None:
-    """Ansible inventory diagram generation"""
+# @dataclass
+# class AnsibleHost:
+#     """Ansible Host dataclass representation"""
 
-    title = f"{name}\n{COPY}"
-    with OsageDiagram(
-        name=title,
-        filename=filename,
-        show=show,
-        outformat=outformat,
-        graph_attr=graph_attr,
-        node_attr=node_attr,
-    ):
-        for group_name, group in data.items():
-            _graph_recurse(group_name, group)
+#     name: str = field(default_factory=str)
+#     host: str = field(default_factory=str)
+
+#     def __repr__(self) -> str:
+#         return f"Host {self.name} ({self.host})"
 
 
-def _graph_recurse(
-    cluster_title: str, group: AnsibleGroup, node: Node | None = None
-) -> None:
-    """Graphing recursive logic"""
+# @dataclass
+# class AnsibleGroup:
+#     """Ansible Group dataclass representation"""
 
-    with Cluster(cluster_title, direction="TB"):
-        # Draw hosts if present
-        group_name_lower = group.name.lower()
-        for host in group.hosts:
-            label = f"{host.name}\n{host.host}"
-            new_node = _identify_node(group_name_lower, label)
+#     name: str = field(default_factory=str)
+#     parent: str | None = field(default=None)
+#     children: list["AnsibleGroup"] = field(default_factory=list)
+#     hosts: list[AnsibleHost] = field(default_factory=list)
 
-        # Draw group children
-        for child in group.children:
-            # Recurse
-            _graph_recurse(child.name, child, node)
+#     def __repr__(self) -> str:
+#         return f"Group {self.name}[{len(self.children)}] ({len(self.hosts)})"
 
 
-def _identify_node(name: str, label: str) -> Node:
+class InventoryDiagram:
+    """Inventory diagram generation class"""
+
+    def __init__(
+        self,
+        data: dict[str, AnsibleGroup],
+        title: str = "Ansible inventory diagram",
+        filename: str = "ansible_inventory_diagram",
+        outformat: str = "pdf",
+        show: bool = False,
+    ) -> None:
+        self.data = data
+        self.title = f"{title}\n{COPY}"
+        self.filename = filename
+        self.show = show
+        self.outformat = outformat
+
+    def generate_grouping(self) -> None:
+        """Diagram with hosts sorted into groups and clusters"""
+        with OsageDiagram(
+            name=self.title,
+            filename=self.filename,
+            show=self.show,
+            outformat=self.outformat,
+            graph_attr=graph_attr,
+            node_attr=node_attr,
+        ):
+            for group_name, group in self.data.items():
+                self._graph_recurse(group_name, group)
+
+    def generate_diagram(self) -> None:
+        """Diagram with hosts and their relations"""
+        with Diagram(
+            name=self.title,
+            filename=self.filename,
+            show=self.show,
+            outformat=self.outformat,
+            graph_attr=graph_attr,
+            node_attr=node_attr,
+        ):
+            for group_name, group in self.data.items():
+                self._graph_recurse(group_name, group)
+
+    def generate(self) -> None:
+        """Ansible inventory diagram generation"""
+        with OsageDiagram(
+            name=self.title,
+            filename=self.filename,
+            show=self.show,
+            outformat=self.outformat,
+            graph_attr=graph_attr,
+            node_attr=node_attr,
+        ):
+            for group_name, group in self.data.items():
+                self._graph_recurse(group_name, group)
+
+    def _graph_recurse(
+        self, cluster_title: str, group: AnsibleGroup, node: Node | None = None
+    ) -> None:
+        """Graphing recursive logic"""
+
+        with Cluster(cluster_title, direction="TB") as cluster:
+            # Draw hosts if present
+            group_name_lower = group.name.lower()
+            for host in group.hosts:
+                label = f"{host.name}\n{host.host}"
+                new_node = identify_node(group_name_lower, label)
+
+            # Draw group children
+            for child in group.children:
+                # Recurse
+                self._graph_recurse(child.name, child, node)
+
+
+def identify_node(name: str, label: str) -> Node:
     """Identify what kind of node by name and return icon with label"""
 
     if "postgres" in name or "stolon" in name or "patroni" in name:

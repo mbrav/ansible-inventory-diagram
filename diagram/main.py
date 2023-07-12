@@ -3,7 +3,7 @@ import os
 
 from graph import InventoryGraph
 
-from diagram import COPY, generate_ansible_diagram
+from diagram import COPY, InventoryDiagram
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -64,10 +64,12 @@ if __name__ == "__main__":
     tree = graph.generate_tree()
 
     # Generate diagram
-    generate_ansible_diagram(
+    diagram = InventoryDiagram(
         data=tree,
-        name=args.name,
+        title=args.name,
         filename=args.filename,
         show=args.show,
         outformat=args.outformat,
     )
+
+    diagram.generate_grouping()
