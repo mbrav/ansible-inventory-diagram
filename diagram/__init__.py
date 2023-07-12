@@ -1,1 +1,1 @@
-from . import graph, patch
+from . import graph, patch, diagram

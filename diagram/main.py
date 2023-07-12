@@ -1,7 +1,9 @@
 import argparse
 import os
 
-from graph import COPY, InventoryGraph, generate_ansible_graph
+from graph import InventoryGraph
+
+from diagram import COPY, generate_ansible_diagram
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -61,8 +63,8 @@ if __name__ == "__main__":
     # Generate tree
     tree = graph.generate_tree()
 
-    # Generate graph
-    generate_ansible_graph(
+    # Generate diagram
+    generate_ansible_diagram(
         data=tree,
         name=args.name,
         filename=args.filename,
