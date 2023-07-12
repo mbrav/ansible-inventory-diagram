@@ -90,19 +90,6 @@ class InventoryDiagram:
             for group_name, group in self.data.items():
                 self._graph_recurse(group_name, group)
 
-    def generate(self) -> None:
-        """Ansible inventory diagram generation"""
-        with OsageDiagram(
-            name=self.title,
-            filename=self.filename,
-            show=self.show,
-            outformat=self.outformat,
-            graph_attr=graph_attr,
-            node_attr=node_attr,
-        ):
-            for group_name, group in self.data.items():
-                self._graph_recurse(group_name, group)
-
     def _graph_recurse(
         self, cluster_title: str, group: AnsibleGroup, node: Node | None = None
     ) -> None:
