@@ -4,6 +4,7 @@ from dataclasses import dataclass, field
 from diagrams import Cluster
 from diagrams.elastic.elasticsearch import ElasticSearch
 from diagrams.k8s.infra import ETCD, Master, Node
+from diagrams.onprem.auth import Oauth2Proxy
 from diagrams.onprem.ci import ConcourseCI
 from diagrams.onprem.database import Clickhouse, Mssql, PostgreSQL
 from diagrams.onprem.inmemory import Redis
@@ -161,8 +162,6 @@ def _graph_recurse(cluster_title: str, group: AnsibleGroup) -> None:
                 ConcourseCI(label)
             elif "harbor" in group_name_lower:
                 Harbor(label)
-            elif "etcd" in group_name_lower:
-                ETCD(label)
             elif "kafka" in group_name_lower:
                 Kafka(label)
             elif "grafana" in group_name_lower:
@@ -173,13 +172,22 @@ def _graph_recurse(cluster_title: str, group: AnsibleGroup) -> None:
                 Nginx(label)
             elif "clickhouse" in group_name_lower:
                 Clickhouse(label)
-            elif "k8s" in group_name_lower:
-                if "master" in group_name_lower:
+            elif "k8s" in group_name_lower or "kube" in group_name_lower:
+                if (
+                    "master" in group_name_lower
+                    or "kube_control_plane" in group_name_lower
+                ):
                     Master(label)
+                elif "etcd" in group_name_lower:
+                    ETCD(label)
                 else:
                     Node(label)
+            elif "etcd" in group_name_lower:
+                ETCD(label)
             elif "redis" in group_name_lower:
                 Redis(label)
+            elif "proxy" in group_name_lower:
+                Oauth2Proxy(label)
             # elif "minio" in group_name_lower:
             #     Redis(label)
             else:
