@@ -1,7 +1,9 @@
 from diagrams import Cluster
-
+from diagrams import Diagram as OsageDiagram
+from diagrams import Node
 from diagrams.elastic.elasticsearch import ElasticSearch
-from diagrams.k8s.infra import ETCD, Master, Node
+from diagrams.k8s.infra import ETCD, Master
+from diagrams.k8s.infra import Node as Worker
 from diagrams.onprem.auth import Oauth2Proxy
 from diagrams.onprem.ci import ConcourseCI
 from diagrams.onprem.database import Clickhouse, Mssql, PostgreSQL
@@ -13,7 +15,8 @@ from diagrams.onprem.registry import Harbor
 from diagrams.onprem.security import Vault
 from diagrams.programming.flowchart import Database as DBDiagram
 from graph import AnsibleGroup
-from patch import OsageDiagram
+
+# from patch import OsageDiagram
 
 COPY = "2023 GNU GPL v3.0 - mbrav https://github.com/mbrav/ansible-inventory-diagram"
 
@@ -45,7 +48,9 @@ def generate_ansible_diagram(
             _graph_recurse(group_name, group)
 
 
-def _graph_recurse(cluster_title: str, group: AnsibleGroup) -> None:
+def _graph_recurse(
+    cluster_title: str, group: AnsibleGroup, node: Node | None = None
+) -> None:
     """Graphing recursive logic"""
 
     with Cluster(cluster_title, direction="TB"):
@@ -53,58 +58,57 @@ def _graph_recurse(cluster_title: str, group: AnsibleGroup) -> None:
         group_name_lower = group.name.lower()
         for host in group.hosts:
             label = f"{host.name}\n{host.host}"
-            if (
-                "postgres" in group_name_lower
-                or "stolon" in group_name_lower
-                or "patroni" in group_name_lower
-            ):
-                PostgreSQL(label)
-            elif "mysql" in group_name_lower:
-                Mssql(label)
-            elif "elastic" in group_name_lower:
-                ElasticSearch(label)
-            elif "haproxy" in group_name_lower:
-                Haproxy(label)
-            elif "consul" in group_name_lower:
-                Consul(label)
-            elif "vault" in group_name_lower:
-                Vault(label)
-            elif "concourse" in group_name_lower:
-                ConcourseCI(label)
-            elif "harbor" in group_name_lower:
-                Harbor(label)
-            elif "kafka" in group_name_lower:
-                Kafka(label)
-            elif "grafana" in group_name_lower:
-                Grafana(label)
-            elif "prom" in group_name_lower:
-                Prometheus(label)
-            elif "nginx" in group_name_lower:
-                Nginx(label)
-            elif "clickhouse" in group_name_lower:
-                Clickhouse(label)
-            elif "k8s" in group_name_lower or "kube" in group_name_lower:
-                if (
-                    "master" in group_name_lower
-                    or "kube_control_plane" in group_name_lower
-                ):
-                    Master(label)
-                elif "etcd" in group_name_lower:
-                    ETCD(label)
-                else:
-                    Node(label)
-            elif "etcd" in group_name_lower:
-                ETCD(label)
-            elif "redis" in group_name_lower:
-                Redis(label)
-            elif "proxy" in group_name_lower:
-                Oauth2Proxy(label)
-            # elif "minio" in group_name_lower:
-            #     Redis(label)
-            else:
-                DBDiagram(label)
+            new_node = _identify_node(group_name_lower, label)
 
         # Draw group children
         for child in group.children:
             # Recurse
-            _graph_recurse(child.name, child)
+            _graph_recurse(child.name, child, node)
+
+
+def _identify_node(name: str, label: str) -> Node:
+    """Identify what kind of node by name and return icon with label"""
+
+    if "postgres" in name or "stolon" in name or "patroni" in name:
+        return PostgreSQL(label)
+    elif "mysql" in name:
+        return Mssql(label)
+    elif "elastic" in name:
+        ElasticSearch(label)
+    elif "haproxy" in name:
+        return Haproxy(label)
+    elif "consul" in name:
+        return Consul(label)
+    elif "vault" in name:
+        return Vault(label)
+    elif "concourse" in name:
+        ConcourseCI(label)
+    elif "harbor" in name:
+        return Harbor(label)
+    elif "kafka" in name:
+        return Kafka(label)
+    elif "grafana" in name:
+        return Grafana(label)
+    elif "prom" in name:
+        return Prometheus(label)
+    elif "nginx" in name:
+        return Nginx(label)
+    elif "clickhouse" in name:
+        return Clickhouse(label)
+    elif "k8s" in name or "kube" in name:
+        if "master" in name or "kube_control_plane" in name:
+            return Master(label)
+        elif "etcd" in name:
+            return ETCD(label)
+        else:
+            return Worker(label)
+    elif "etcd" in name:
+        return ETCD(label)
+    elif "redis" in name:
+        return Redis(label)
+    elif "proxy" in name:
+        return Oauth2Proxy(label)
+    # elif "minio" in name:
+    #     Redis(label)
+    else:
+        return DBDiagram(label)
