@@ -12,7 +12,7 @@ from diagrams.onprem.queue import Kafka
 from diagrams.onprem.registry import Harbor
 from diagrams.onprem.security import Vault
 from diagrams.programming.flowchart import Database as DBDiagram
-from graph import AnsibleGroup
+from graph import AnsibleGroup, AnsibleHost
 from patch import OsageDiagram
 
 COPY = "2023 GNU GPL v3.0 - mbrav https://github.com/mbrav/ansible-inventory-diagram"
@@ -21,30 +21,6 @@ COPY = "2023 GNU GPL v3.0 - mbrav https://github.com/mbrav/ansible-inventory-dia
 # https://graphviz.org/docs/attrs
 node_attr = {"fontsize": "10", "pad": "5.0"}
 graph_attr = {}
-
-
-# @dataclass
-# class AnsibleHost:
-#     """Ansible Host dataclass representation"""
-
-#     name: str = field(default_factory=str)
-#     host: str = field(default_factory=str)
-
-#     def __repr__(self) -> str:
-#         return f"Host {self.name} ({self.host})"
-
-
-# @dataclass
-# class AnsibleGroup:
-#     """Ansible Group dataclass representation"""
-
-#     name: str = field(default_factory=str)
-#     parent: str | None = field(default=None)
-#     children: list["AnsibleGroup"] = field(default_factory=list)
-#     hosts: list[AnsibleHost] = field(default_factory=list)
-
-#     def __repr__(self) -> str:
-#         return f"Group {self.name}[{len(self.children)}] ({len(self.hosts)})"
 
 
 class InventoryDiagram:
@@ -75,7 +51,7 @@ class InventoryDiagram:
             node_attr=node_attr,
         ):
             for group_name, group in self.data.items():
-                self._graph_recurse(group_name, group)
+                self._graph_recurse(group)
 
     def generate_diagram(self) -> None:
         """Diagram with hosts and their relations"""
@@ -87,25 +63,22 @@ class InventoryDiagram:
             graph_attr=graph_attr,
             node_attr=node_attr,
         ):
-            for group_name, group in self.data.items():
-                self._graph_recurse(group_name, group)
+            for group in self.data.values():
+                self._graph_recurse(group)
 
-    def _graph_recurse(
-        self, cluster_title: str, group: AnsibleGroup, node: Node | None = None
-    ) -> None:
+    def _graph_recurse(self, group: AnsibleGroup) -> None:
         """Graphing recursive logic"""
 
-        with Cluster(cluster_title, direction="TB") as cluster:
+        with Cluster(group.name, direction="TB") as cluster:
             # Draw hosts if present
-            group_name_lower = group.name.lower()
             for host in group.hosts:
                 label = f"{host.name}\n{host.host}"
-                new_node = identify_node(group_name_lower, label)
+                new_node = identify_node(group.name.lower(), label)
 
             # Draw group children
             for child in group.children:
                 # Recurse
-                self._graph_recurse(child.name, child, node)
+                self._graph_recurse(child)
 
 
 def identify_node(name: str, label: str) -> Node:

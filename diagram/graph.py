@@ -1,6 +1,8 @@
 import json
 from dataclasses import dataclass, field
 
+from diagrams import Cluster, Node
+
 
 @dataclass
 class AnsibleHost:
@@ -8,6 +10,7 @@ class AnsibleHost:
 
     name: str = field(default_factory=str)
     host: str = field(default_factory=str)
+    node: Node | None = None
 
     def __repr__(self) -> str:
         return f"Host {self.name} ({self.host})"
@@ -21,6 +24,7 @@ class AnsibleGroup:
     parent: str | None = field(default=None)
     children: list["AnsibleGroup"] = field(default_factory=list)
     hosts: list[AnsibleHost] = field(default_factory=list)
+    cluster: Cluster | None = None
 
     def __repr__(self) -> str:
         return f"Group {self.name}[{len(self.children)}] ({len(self.hosts)})"
