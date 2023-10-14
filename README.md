@@ -12,7 +12,8 @@ Script for generating infrastructure diagrams from Ansible inventory files
 
 ## Prerequisites
 
-Before using this script you must install the [Graphviz library](https://graphviz.org/).
+- Python 3.10, see [#1](https://github.com/mbrav/ansible-inventory-diagram/issues/1) for Python 3.9 support;
+- Before using this script you must install the [Graphviz library](https://graphviz.org/) on your system.
 
 ### Inventory file preparation
 
